@@ -24,6 +24,10 @@
 #define CTRL_KEY(k) ((k) & 0x1f)
 
 enum editorKey {
+//防止插入的字符
+  BACKSPACE = 127,
+  
+  
   ARROW_LEFT = 1000,
   ARROW_RIGHT ,
   ARROW_UP,
@@ -472,6 +476,23 @@ void editorMoveCursor(int key) {
 void editorProcessKeypress() {
   int c = editorReadKey();
   switch (c) {
+  //
+     case '\r':
+      /* TODO  Enter */
+      break;
+     //ctrl h == backspace
+    case BACKSPACE:
+    case CTRL_KEY('h'):
+    case DEL_KEY:
+      /* TODO Delete*/
+      break;
+      // Ctrl-L is traditionally used to refresh the screen in terminal programs
+    case CTRL_KEY('l'):
+    //Escape
+    case '\x1b':
+      break;
+  //
+  
     case CTRL_KEY('q'):
       write(STDOUT_FILENO, "\x1b[2J", 4);
       write(STDOUT_FILENO, "\x1b[H", 3);
